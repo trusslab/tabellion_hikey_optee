@@ -7,10 +7,10 @@
 
 #ifdef CFG_WITH_LPAE
 #define PGT_SIZE	(4 * 1024)
-#define PGT_NUM_PGT_PER_PAGE	1
+#define PGT_NUM_PGT_PER_PAGE	6
 #else
 #define PGT_SIZE	(1 * 1024)
-#define PGT_NUM_PGT_PER_PAGE	4
+#define PGT_NUM_PGT_PER_PAGE	6
 #endif
 
 #include <assert.h>
@@ -38,7 +38,7 @@ struct pgt {
  * Reserve 2 page tables per thread, but at least 4 page tables in total
  */
 #if CFG_NUM_THREADS < 2
-#define PGT_CACHE_SIZE	4
+#define PGT_CACHE_SIZE	32
 #else
 #define PGT_CACHE_SIZE	ROUNDUP(CFG_NUM_THREADS * 2, PGT_NUM_PGT_PER_PAGE)
 #endif

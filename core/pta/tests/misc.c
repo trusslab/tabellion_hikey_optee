@@ -17,8 +17,9 @@
  * #define LOG     DMSG_RAW
  * #define LOG(...)
  */
-#define LOG(...)
+//#define LOG(...)
 
+#define LOG     DMSG_RAW
 static int self_test_add_overflow(void)
 {
 	uint32_t r_u32;

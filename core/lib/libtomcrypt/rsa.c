@@ -474,7 +474,6 @@ TEE_Result crypto_acipher_rsassa_sign(uint32_t algo, struct rsa_keypair *key,
 		res = TEE_ERROR_BAD_PARAMETERS;
 		goto err;
 	}
-
 	if (ltc_rsa_algo != LTC_PKCS_1_V1_5_NA1) {
 		ltc_res = tee_algo_to_ltc_hashindex(algo, &ltc_hashindex);
 		if (ltc_res != CRYPT_OK) {

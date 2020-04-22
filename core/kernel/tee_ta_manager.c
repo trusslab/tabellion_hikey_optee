@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BSD-2-Clause
-/*
- * Copyright (c) 2014, STMicroelectronics International N.V.
+
+ /* Copyright (c) 2014, STMicroelectronics International N.V.
  */
 
 #include <types_ext.h>
@@ -628,7 +628,6 @@ static TEE_Result tee_ta_init_session(TEE_ErrorOrigin *err,
 	 * RPC to load the TA. This big critical section should be broken
 	 * down into smaller pieces.
 	 */
-
 
 	mutex_lock(&tee_ta_mutex);
 	s->id = new_session_id(open_sessions);

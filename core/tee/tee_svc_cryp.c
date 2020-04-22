@@ -909,7 +909,7 @@ static int tee_svc_cryp_obj_find_type_attr_idx(
 	return -1;
 }
 
-static const struct tee_cryp_obj_type_props *tee_svc_find_type_props(
+const struct tee_cryp_obj_type_props *tee_svc_find_type_props(
 		TEE_ObjectType obj_type)
 {
 	size_t n;
@@ -921,6 +921,7 @@ static const struct tee_cryp_obj_type_props *tee_svc_find_type_props(
 
 	return NULL;
 }
+EXPORT_SYMBOL(tee_svc_find_type_props);
 
 /* Set an attribute on an object */
 static void set_attribute(struct tee_obj *o,
@@ -1479,7 +1480,7 @@ static TEE_Result get_ec_key_size(uint32_t curve, size_t *key_size)
 	return TEE_SUCCESS;
 }
 
-static TEE_Result tee_svc_cryp_obj_populate_type(
+TEE_Result tee_svc_cryp_obj_populate_type(
 		struct tee_obj *o,
 		const struct tee_cryp_obj_type_props *type_props,
 		const TEE_Attribute *attrs,
@@ -1548,6 +1549,7 @@ static TEE_Result tee_svc_cryp_obj_populate_type(
 
 	return TEE_SUCCESS;
 }
+EXPORT_SYMBOL(tee_svc_cryp_obj_populate_type);
 
 TEE_Result syscall_cryp_obj_populate(unsigned long obj,
 			struct utee_attribute *usr_attrs,

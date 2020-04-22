@@ -49,13 +49,13 @@ CFG_TEE_CORE_DEBUG ?= y
 # 2: error + warning
 # 3: error + warning + debug
 # 4: error + warning + debug + flow
-CFG_TEE_CORE_LOG_LEVEL ?= 1
+CFG_TEE_CORE_LOG_LEVEL ?= 4
 
 # TA log level
 # If user-mode library libutils.a is built with CFG_TEE_TA_LOG_LEVEL=0,
 # TA tracing is disabled regardless of the value of CFG_TEE_TA_LOG_LEVEL
 # when the TA is built.
-CFG_TEE_TA_LOG_LEVEL ?= 1
+CFG_TEE_TA_LOG_LEVEL ?= 4
 
 # TA enablement
 # When defined to "y", TA traces are output according to
@@ -72,8 +72,8 @@ CFG_TEE_CORE_TA_TRACE ?= y
 #   $ make CFG_TEE_TA_MALLOC_DEBUG=y CFG_TEE_TA_LOG_LEVEL=3
 # - To debug TEE core allocations: build OP-TEE with:
 #   $ make CFG_TEE_CORE_MALLOC_DEBUG=y CFG_TEE_CORE_LOG_LEVEL=3
-CFG_TEE_CORE_MALLOC_DEBUG ?= n
-CFG_TEE_TA_MALLOC_DEBUG ?= n
+CFG_TEE_CORE_MALLOC_DEBUG ?= y
+CFG_TEE_TA_MALLOC_DEBUG ?= y
 # Prints an error message and dumps the stack on failed memory allocations
 # using malloc() and friends.
 CFG_CORE_DUMP_OOM ?= $(CFG_TEE_CORE_MALLOC_DEBUG)
@@ -337,7 +337,8 @@ CFG_TEE_CORE_EMBED_INTERNAL_TESTS ?= y
 CFG_BOOT_SECONDARY_REQUEST ?= n
 
 # Default heap size for Core, 64 kB
-CFG_CORE_HEAP_SIZE ?= 65536
+#CFG_CORE_HEAP_SIZE ?= 65536
+CFG_CORE_HEAP_SIZE ?= 524288
 
 # Default size of nexus heap. 16 kB. Used only if CFG_VIRTUALIZATION
 # is enabled
