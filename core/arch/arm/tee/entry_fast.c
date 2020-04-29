@@ -184,6 +184,10 @@ void __weak tee_entry_fast(struct thread_smc_args *args)
  * If tee_entry_fast() is overridden, it's still supposed to call this
  * function.
  */
+/* phys addr of photo */
+unsigned int paddr_cam;
+EXPORT_SYMBOL(paddr_cam);
+
 void __tee_entry_fast(struct thread_smc_args *args)
 {
 	switch (args->a0) {
@@ -211,6 +215,10 @@ void __tee_entry_fast(struct thread_smc_args *args)
 		tee_entry_get_shm_config(args);
 		break;
 #endif
+	case OPTEE_SMC_PHOTO_OP:
+		paddr_cam = (unsigned int)args->a1;
+		break;
+
 	case OPTEE_SMC_L2CC_MUTEX:
 		tee_entry_fastcall_l2cc_mutex(args);
 		break;

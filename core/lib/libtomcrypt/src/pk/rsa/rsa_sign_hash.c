@@ -44,7 +44,6 @@ int rsa_sign_hash_ex(const unsigned char *in,       unsigned long  inlen,
    LTC_ARGCHK(out      != NULL);
    LTC_ARGCHK(outlen   != NULL);
    LTC_ARGCHK(key      != NULL);
-
    /* valid padding? */
    if ((padding != LTC_PKCS_1_V1_5) &&
        (padding != LTC_PKCS_1_PSS) &&
@@ -65,7 +64,6 @@ int rsa_sign_hash_ex(const unsigned char *in,       unsigned long  inlen,
         return err;
      }
    }
-
    /* get modulus len in bits */
    modulus_bitlen = mp_count_bits((key->N));
 
@@ -106,14 +104,12 @@ int rsa_sign_hash_ex(const unsigned char *in,       unsigned long  inlen,
       LTC_SET_ASN1(digestinfo, 1, LTC_ASN1_NULL,              NULL,                          0);
       LTC_SET_ASN1(siginfo,    0, LTC_ASN1_SEQUENCE,          digestinfo,                    2);
       LTC_SET_ASN1(siginfo,    1, LTC_ASN1_OCTET_STRING,      in,                            inlen);
-
       /* allocate memory for the encoding */
       y = mp_unsigned_bin_size(key->N);
       tmpin = XMALLOC(y);
       if (tmpin == NULL) {
          return CRYPT_MEM;
       }
-
       if ((err = der_encode_sequence(siginfo, 2, tmpin, &y)) != CRYPT_OK) {
          XFREE(tmpin);
          return err;

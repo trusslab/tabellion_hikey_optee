@@ -86,9 +86,12 @@ static TEE_Result tee_algo_to_ltc_hashindex(uint32_t algo, int *ltc_hashindex)
 TEE_Result crypto_acipher_alloc_rsa_keypair(struct rsa_keypair *s,
 					    size_t key_size_bits __unused)
 {
+	IMSG("%s\n", __FUNCTION__);
 	memset(s, 0, sizeof(*s));
+	IMSG("%s\n", __FUNCTION__);
 	if (!bn_alloc_max(&s->e))
 		return TEE_ERROR_OUT_OF_MEMORY;
+	IMSG("%s\n", __FUNCTION__);
 	if (!bn_alloc_max(&s->d))
 		goto err;
 	if (!bn_alloc_max(&s->n))
@@ -104,6 +107,7 @@ TEE_Result crypto_acipher_alloc_rsa_keypair(struct rsa_keypair *s,
 	if (!bn_alloc_max(&s->dq))
 		goto err;
 
+	IMSG("%s\n", __FUNCTION__);
 	return TEE_SUCCESS;
 err:
 	crypto_bignum_free(s->e);
@@ -438,7 +442,7 @@ TEE_Result crypto_acipher_rsassa_sign(uint32_t algo, struct rsa_keypair *key,
 	int ltc_res, ltc_rsa_algo, ltc_hashindex;
 	unsigned long ltc_sig_len;
 	rsa_key ltc_key = { 0, };
-
+	
 	ltc_key.type = PK_PRIVATE;
 	ltc_key.e = key->e;
 	ltc_key.N = key->n;
@@ -480,7 +484,6 @@ TEE_Result crypto_acipher_rsassa_sign(uint32_t algo, struct rsa_keypair *key,
 			res = TEE_ERROR_BAD_PARAMETERS;
 			goto err;
 		}
-
 		res = tee_hash_get_digest_size(TEE_DIGEST_HASH_TO_ALGO(algo),
 					       &hash_size);
 		if (res != TEE_SUCCESS)
@@ -491,7 +494,6 @@ TEE_Result crypto_acipher_rsassa_sign(uint32_t algo, struct rsa_keypair *key,
 			goto err;
 		}
 	}
-
 	mod_size = ltc_mp.unsigned_size((void *)(ltc_key.N));
 
 	if (*sig_len < mod_size) {
@@ -501,7 +503,6 @@ TEE_Result crypto_acipher_rsassa_sign(uint32_t algo, struct rsa_keypair *key,
 	}
 
 	ltc_sig_len = mod_size;
-
 	ltc_res = rsa_sign_hash_ex(msg, msg_len, sig, &ltc_sig_len,
 				   ltc_rsa_algo, NULL, find_prng("prng_crypto"),
 				   ltc_hashindex, salt_len, &ltc_key);
